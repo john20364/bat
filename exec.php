@@ -9,7 +9,7 @@
 		shell_exec("rtlsstop $stream");
 
 		// Open RTLS stream $stream
-		pclose(popen("start \"LAUNCHCOMMAND\" /MIN c:\\users\\078640\\dev\\bat\\rtlsstart $stream","r"));	
+		pclose(popen("start \"LAUNCHCOMMAND\" /MIN c:\\xampp\\htdocs\\esb\\rest\\rtlsstart $stream","r"));	
 
 		// Close Launch command window
 		shell_exec("launchcmdstop \"LAUNCHCOMMAND\"");
