@@ -1,9 +1,9 @@
-ECHO OFF 
+@ECHO OFF >nul
 
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-::START "locations.php" /MIN php -f c:\xampp\htdocs\esb\php\zones.php
-START %1 /MIN php -f c:\xampp\htdocs\esb\php\zones.php
+set title=%1
+set found="FALSE"
 
 for /f "tokens=*" %%a in ('tasklist /v /fo csv ^| findstr /c:"%1"') do (
 	set /A count = 0
@@ -14,10 +14,14 @@ for /f "tokens=*" %%a in ('tasklist /v /fo csv ^| findstr /c:"%1"') do (
 			call :Func1 %%b
 		)
 
-		if !count! == 2 (
+		if !count! == 9 (
 			call :Func2 %%b
 		)
 	)
+)
+
+if !found! == "FALSE" (
+	@ECHO Stream !title! is NOT running.
 )
 
 :Func1
@@ -28,7 +32,8 @@ goto :eof
 
 :Func2
 if /i !processname! == "php.exe" (
-	taskkill /pid %1
+	@ECHO Stream !title! is running.
+	set found="TRUE"
 )
 goto :eof
 

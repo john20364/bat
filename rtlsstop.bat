@@ -1,9 +1,8 @@
-ECHO OFF 
+@ECHO OFF >nul
 
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-::START "locations.php" /MIN php -f c:\xampp\htdocs\esb\php\zones.php
-START %1 /MIN php -f c:\xampp\htdocs\esb\php\zones.php
+set title=%1
 
 for /f "tokens=*" %%a in ('tasklist /v /fo csv ^| findstr /c:"%1"') do (
 	set /A count = 0
@@ -28,7 +27,8 @@ goto :eof
 
 :Func2
 if /i !processname! == "php.exe" (
-	taskkill /pid %1
+	taskkill /pid %1 >nul
+	@ECHO Stream !title! is stopped.
 )
 goto :eof
 
